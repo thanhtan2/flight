@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head><title>FlyNow - Frontend</title></head>
+<body style="font-family: Arial; padding: 20px;">
+    <h1>Danh sách chuyến bay (FlyNow)</h1>
+    <ul id="flight-list">Đang tải dữ liệu...</ul>
+
+    <script>
+        // Khi chạy Docker local dùng: http://localhost:8000/api/flights
+        // Khi deploy thật thay bằng link Render của bạn
+        fetch('http://localhost:8000/api/flights')
+            .then(res => res.json())
+            .then(data => {
+                const list = document.getElementById('flight-list');
+                list.innerHTML = data.map(f => `<li><b>${f.name}</b> - Giá: ${f.price}</li>`).join('');
+            })
+            .catch(err => document.getElementById('flight-list').innerHTML = "Lỗi kết nối Backend!");
+    </script>
+</body>
+</html>
